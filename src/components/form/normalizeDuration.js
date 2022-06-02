@@ -5,7 +5,7 @@ const normalizeDuration = (value, previousValue) => {
       return onlyNums + ':';
     }
     if (onlyNums.length === 4) {
-      return onlyNums.slice(0, 2) + ':' + onlyNums.slice(2) + '-';
+      return onlyNums.slice(0, 2) + ':' + onlyNums.slice(2) + ':';
     }
   }
   if (onlyNums.length <= 2) {

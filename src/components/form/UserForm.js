@@ -124,8 +124,30 @@ let UserForm = ({ dishType, handleSubmit, reset }) => {
 
 const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
 
+const validate = (values) => {
+  const errors = {};
+  if (!values.dishName) {
+    errors.dishName = 'Required';
+  } else if (values.dishName.length > 15) {
+    errors.dishName = 'Must be 15 characters or less';
+  } else if (values.dishName.length < 2) {
+    errors.dishName = 'Must be 3 characters or more';
+  }
+  if (!values.prepTime) {
+    errors.prepTime = 'Required';
+  } else if (isNaN(Number(values.age))) {
+    errors.prepTime = 'Must be a number';
+  }
+
+  if (!values.dishType) {
+    errors.prepTime = 'Required';
+  }
+  return errors;
+};
+
 UserForm = reduxForm({
   form: 'userForm',
+  validate,
   onSubmitSuccess: afterSubmit,
 })(UserForm);
 
