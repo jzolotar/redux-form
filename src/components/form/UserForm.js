@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { Field, reduxForm } from 'redux-form';
 import { Fragment } from 'react';
+import normalizeDuration from './normalizeDuration';
 
 const dishTypeValues = ['pizza', 'soup', 'sandwich'];
 
@@ -92,7 +93,8 @@ let UserForm = ({ dishType }) => {
             name='prepTime'
             component='input'
             type='text'
-            placeholder='0:00:00'
+            placeholder='00:00:00'
+            normalize={normalizeDuration}
           />
         </div>
       </div>
