@@ -1,5 +1,7 @@
+import UserForm from './components/form/UserForm';
+
 function App() {
-  return <div className='App'></div>;
+  return <UserForm onSubmit={() => console.log('click')} />;
 }
 
 export default App;
