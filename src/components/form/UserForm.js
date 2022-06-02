@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import { Field, reduxForm } from 'redux-form';
+import { reset, Field, reduxForm } from 'redux-form';
 import { Fragment } from 'react';
 import normalizeDuration from './normalizeDuration';
 
 const dishTypeValues = ['pizza', 'soup', 'sandwich'];
 
-let UserForm = ({ dishType }) => {
+let UserForm = ({ dishType, handleSubmit, reset }) => {
   const pizzaElem = (
     <Fragment>
       <div>
@@ -74,7 +74,7 @@ let UserForm = ({ dishType }) => {
   );
 
   return (
-    <form onSubmit>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Dish Name</label>
         <div>
@@ -116,13 +116,17 @@ let UserForm = ({ dishType }) => {
       {dishType === 'sandwich' && sandwichElem}
       <div>
         <button type='submit'>Submit</button>
+        <button>reset</button>
       </div>
     </form>
   );
 };
 
+const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
+
 UserForm = reduxForm({
   form: 'userForm',
+  onSubmitSuccess: afterSubmit,
 })(UserForm);
 
 const selector = formValueSelector('userForm');
