@@ -1,8 +1,7 @@
-import showResult from './components/form/showResult';
 import UserForm from './components/form/UserForm';
 
 function App() {
-  return <UserForm onSubmit={showResult} />;
+  return <UserForm />;
 }
 
 export default App;

@@ -1,4 +1,4 @@
-const normalizeDuration = (value, previousValue) => {
+export const normalizeDuration = (value, previousValue) => {
   const onlyNums = value.replace(/[^\d]/g, '');
   if (!previousValue || value.length > previousValue.length) {
     if (onlyNums.length === 2) {
@@ -22,5 +22,3 @@ const normalizeDuration = (value, previousValue) => {
     onlyNums.slice(4, 6)
   );
 };
-
-export default normalizeDuration;

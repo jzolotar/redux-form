@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { reset, Field, reduxForm } from 'redux-form';
 import { Fragment } from 'react';
-import normalizeDuration from './normalizeDuration';
 import SingleInput from '../formElements/singleInput/SingleInput';
 import SelectDropDownList from '../formElements/select/SelectDropDown';
+import { SubmissionError } from 'redux-form';
+import { validate } from '../../helpers/validate';
+import { normalizeDuration } from '../../helpers/normalizeDuration';
 
 let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
@@ -51,7 +53,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(validateSubmition)}>
       <Field
         name='dishName'
         type='text'
@@ -84,42 +86,64 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
 const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
 
-const validate = (values) => {
+const validateSubmition = (values) => {
   const errors = {};
+  let isError = false;
   if (!values.dishName || !values.dishName.trim()) {
     errors.dishName = 'Required';
+    isError = true;
   } else if (values.dishName.length > 15) {
     errors.dishName = 'Must be 15 characters or less';
+    isError = true;
   } else if (values.dishName.length < 2) {
     errors.dishName = 'Must be 3 characters or more';
+    isError = true;
   }
   if (!values.prepTime) {
     errors.prepTime = 'Required';
+    isError = true;
   }
 
   if (!values.dishType) {
     errors.dishType = 'Required';
+    isError = true;
   }
 
   if (values.dishType === 'pizza') {
     if (!values.pizzaSlice || !values.pizzaSlice.trim()) {
       errors.pizzaSlice = 'Required';
+      isError = true;
     }
     if (!values.diameter || !values.diameter.trim()) {
       errors.diameter = 'Required';
+      isError = true;
     }
   }
   if (values.dishType === 'soup') {
     if (!values.spicinessScale || !values.spicinessScale.trim()) {
       errors.spicinessScale = 'Required';
+      isError = true;
     }
   }
   if (values.dishType === 'sandwich') {
     if (!values.sandwich || !values.sandwich.trim()) {
       errors.sandwich = 'Required';
+      isError = true;
     }
   }
-  return errors;
+  if (isError) {
+    throw new SubmissionError(errors);
+  } else {
+    //submit form to server
+    localStorage.setItem('dish', JSON.stringify(values));
+    fetch(
+      'https://react-router-udemy-default-rtdb.europe-west1.firebasedatabase.app/',
+      {
+        method: 'POST',
+        body: JSON.stringify(values),
+      }
+    );
+  }
 };
 
 UserForm = reduxForm({
