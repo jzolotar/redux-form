@@ -3,114 +3,76 @@ import { formValueSelector } from 'redux-form';
 import { reset, Field, reduxForm } from 'redux-form';
 import { Fragment } from 'react';
 import normalizeDuration from './normalizeDuration';
+import SingleInput from '../formElements/singleInput/SingleInput';
+import SelectDropDownList from '../formElements/select/SelectDropDown';
 
 const dishTypeValues = ['pizza', 'soup', 'sandwich'];
 
-let UserForm = ({ dishType, handleSubmit, reset }) => {
+let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
     <Fragment>
-      <div>
-        <label>Numbe of slices</label>
-        <div>
-          <Field
-            name='pizzaSlice'
-            component='input'
-            type='number'
-            placeholder='Dish Name'
-            max='10'
-            min='1'
-          />
-        </div>
-      </div>
-      <div>
-        <label>Diameter</label>
-        <div>
-          <Field
-            name='diameter'
-            component='input'
-            type='float'
-            placeholder='Dish Name'
-            max='10'
-          />
-        </div>
-      </div>
+      <Field
+        name='pizzaSlice'
+        component={SingleInput}
+        type='number'
+        placeholder='Dish Name'
+        label='Numbe of slices'
+        max='10'
+        min='1'
+      />
+
+      <Field
+        name='diameter'
+        component={SingleInput}
+        type='float'
+        placeholder='Dish Name'
+        max='10'
+        label='Diameter'
+      />
     </Fragment>
   );
 
   const soupElem = (
-    <Fragment>
-      <div>
-        <label>Spiciness scale</label>
-        <div>
-          <Field
-            name='spicinessScale'
-            component='input'
-            type='number'
-            placeholder='Dish Name'
-            max='10'
-            min='1'
-          />
-        </div>
-      </div>
-    </Fragment>
+    <Field
+      name='spicinessScale'
+      component={SingleInput}
+      type='number'
+      placeholder='scale 1-10'
+      label='Spiciness Scale'
+    />
   );
 
   const sandwichElem = (
-    <Fragment>
-      <div>
-        <label>Number of slices</label>
-        <div>
-          <Field
-            name='spicinessScale'
-            component='input'
-            type='number'
-            placeholder='Dish Name'
-            max='20'
-            min='1'
-          />
-        </div>
-      </div>
-    </Fragment>
+    <Field
+      name='sandwichNumOfSlices'
+      component={SingleInput}
+      type='number'
+      placeholder='Dish Name'
+      label='Number of Slices'
+    />
   );
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Dish Name</label>
-        <div>
-          <Field
-            name='dishName'
-            component='input'
-            type='text'
-            placeholder='Dish Name'
-          />
-        </div>
-      </div>
-      <div>
-        <label>Preparation Time</label>
-        <div>
-          <Field
-            name='prepTime'
-            component='input'
-            type='text'
-            placeholder='00:00:00'
-            normalize={normalizeDuration}
-          />
-        </div>
-      </div>
-      <div>
-        <label>Dish Type</label>
-        <div>
-          <Field name='dishType' component='select'>
-            <option value=''>Select a dish type...</option>
-            {dishTypeValues.map((type) => (
-              <option value={type} key={type}>
-                {type}
-              </option>
-            ))}
-          </Field>
-        </div>
-      </div>
+      <Field
+        name='dishName'
+        type='text'
+        component={SingleInput}
+        label='Dish Name'
+        placeholder='Enter dish name'
+      />
+
+      <Field
+        name='prepTime'
+        component={SingleInput}
+        type='text'
+        label='Preparation Time'
+        placeholder='00:00:00'
+        normalize={normalizeDuration}
+      />
+
+      <Field label='Dish Type' name='dishType' component={SelectDropDownList} />
+
       {dishType === 'pizza' && pizzaElem}
       {dishType === 'soup' && soupElem}
       {dishType === 'sandwich' && sandwichElem}
