@@ -7,16 +7,17 @@ import SelectDropDownList from '../formElements/select/SelectDropDown';
 import { SubmissionError } from 'redux-form';
 import { validate } from '../../helpers/validate';
 import { normalizeDuration } from '../../helpers/normalizeDuration';
+import { sendData } from '../../helpers/sendData';
 
 let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
     <Fragment>
       <Field
-        name='pizzaSlice'
+        name='no_of_slices'
         component={SingleInput}
         type='number'
-        placeholder='Dish Name'
-        label='Numbe of slices'
+        placeholder='num of slices'
+        label='Number of slices'
         max='10'
         min='1'
       />
@@ -25,7 +26,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
         name='diameter'
         component={SingleInput}
         type='float'
-        placeholder='Dish Name'
+        placeholder='diameter'
         max='10'
         label='Diameter'
       />
@@ -34,7 +35,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
   const soupElem = (
     <Field
-      name='spicinessScale'
+      name='spiciness_scale'
       component={SingleInput}
       type='number'
       placeholder='scale 1-10'
@@ -44,10 +45,10 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
   const sandwichElem = (
     <Field
-      name='sandwichNumOfSlices'
+      name='slices_of_bread'
       component={SingleInput}
       type='number'
-      placeholder='Dish Name'
+      placeholder='num of slices'
       label='Number of Slices'
     />
   );
@@ -55,7 +56,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit(validateSubmition)}>
       <Field
-        name='dishName'
+        name='name'
         type='text'
         component={SingleInput}
         label='Dish Name'
@@ -63,7 +64,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
       />
 
       <Field
-        name='prepTime'
+        name='preparation_time'
         component={SingleInput}
         type='text'
         label='Preparation Time'
@@ -71,7 +72,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
         normalize={normalizeDuration}
       />
 
-      <Field label='Dish Type' name='dishType' component={SelectDropDownList} />
+      <Field label='Dish Type' name='type' component={SelectDropDownList} />
 
       {dishType === 'pizza' && pizzaElem}
       {dishType === 'soup' && soupElem}
@@ -89,29 +90,29 @@ const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
 const validateSubmition = (values) => {
   const errors = {};
   let isError = false;
-  if (!values.dishName || !values.dishName.trim()) {
-    errors.dishName = 'Required';
+  if (!values.name || !values.name.trim()) {
+    errors.name = 'Required';
     isError = true;
-  } else if (values.dishName.length > 15) {
-    errors.dishName = 'Must be 15 characters or less';
+  } else if (values.name.length > 15) {
+    errors.name = 'Must be 15 characters or less';
     isError = true;
-  } else if (values.dishName.length < 2) {
-    errors.dishName = 'Must be 3 characters or more';
-    isError = true;
-  }
-  if (!values.prepTime) {
-    errors.prepTime = 'Required';
+  } else if (values.name.length < 2) {
+    errors.name = 'Must be 3 characters or more';
     isError = true;
   }
-
-  if (!values.dishType) {
-    errors.dishType = 'Required';
+  if (!values.preparation_time) {
+    errors.preparation_time = 'Required';
     isError = true;
   }
 
-  if (values.dishType === 'pizza') {
-    if (!values.pizzaSlice || !values.pizzaSlice.trim()) {
-      errors.pizzaSlice = 'Required';
+  if (!values.type) {
+    errors.type = 'Required';
+    isError = true;
+  }
+
+  if (values.type === 'pizza') {
+    if (!values.no_of_slices || !values.no_of_slices.trim()) {
+      errors.no_of_slices = 'Required';
       isError = true;
     }
     if (!values.diameter || !values.diameter.trim()) {
@@ -119,15 +120,15 @@ const validateSubmition = (values) => {
       isError = true;
     }
   }
-  if (values.dishType === 'soup') {
-    if (!values.spicinessScale || !values.spicinessScale.trim()) {
-      errors.spicinessScale = 'Required';
+  if (values.type === 'soup') {
+    if (!values.spiciness_scale || !values.spiciness_scale.trim()) {
+      errors.spiciness_scale = 'Required';
       isError = true;
     }
   }
-  if (values.dishType === 'sandwich') {
-    if (!values.sandwich || !values.sandwich.trim()) {
-      errors.sandwich = 'Required';
+  if (values.type === 'sandwich') {
+    if (!values.slices_of_bread || !values.slices_of_bread.trim()) {
+      errors.slices_of_bread = 'Required';
       isError = true;
     }
   }
@@ -135,14 +136,14 @@ const validateSubmition = (values) => {
     throw new SubmissionError(errors);
   } else {
     //submit form to server
-    localStorage.setItem('dish', JSON.stringify(values));
-    fetch(
-      'https://react-router-udemy-default-rtdb.europe-west1.firebasedatabase.app/',
-      {
-        method: 'POST',
-        body: JSON.stringify(values),
+    return sendData(values).then((data) => {
+      console.log(data);
+      if (data.errors) {
+        throw new SubmissionError(data.errors);
+      } else {
+        console.log(data);
       }
-    );
+    });
   }
 };
 
@@ -155,7 +156,7 @@ UserForm = reduxForm({
 const selector = formValueSelector('userForm');
 
 UserForm = connect((state) => {
-  const dishType = selector(state, 'dishType');
+  const dishType = selector(state, 'type');
   return { dishType };
 })(UserForm);
 
