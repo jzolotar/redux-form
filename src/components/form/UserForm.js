@@ -6,8 +6,6 @@ import normalizeDuration from './normalizeDuration';
 import SingleInput from '../formElements/singleInput/SingleInput';
 import SelectDropDownList from '../formElements/select/SelectDropDown';
 
-const dishTypeValues = ['pizza', 'soup', 'sandwich'];
-
 let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
     <Fragment>
@@ -86,9 +84,9 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
 const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
 
-const validate = (values, dishType) => {
+const validate = (values) => {
   const errors = {};
-  if (!values.dishName) {
+  if (!values.dishName || !values.dishName.trim()) {
     errors.dishName = 'Required';
   } else if (values.dishName.length > 15) {
     errors.dishName = 'Must be 15 characters or less';
@@ -97,30 +95,27 @@ const validate = (values, dishType) => {
   }
   if (!values.prepTime) {
     errors.prepTime = 'Required';
-  } else if (isNaN(Number(values.age))) {
-    errors.prepTime = 'Must be a number';
   }
 
   if (!values.dishType) {
-    errors.prepTime = 'Please select dish type';
+    errors.dishType = 'Required';
   }
 
-  //TODO: finish validation for all elements, dynamic elements dishtypes
-  if (dishType === 'pizza') {
-    if (!values.pizzaNumOfSlices) {
-      errors.prepTime = 'Required';
+  if (values.dishType === 'pizza') {
+    if (!values.pizzaSlice || !values.pizzaSlice.trim()) {
+      errors.pizzaSlice = 'Required';
     }
-    if (!values.diameter) {
+    if (!values.diameter || !values.diameter.trim()) {
       errors.diameter = 'Required';
     }
   }
-  if (dishType === 'soup') {
-    if (!values.spicinessScale) {
+  if (values.dishType === 'soup') {
+    if (!values.spicinessScale || !values.spicinessScale.trim()) {
       errors.spicinessScale = 'Required';
     }
   }
-  if (dishType === 'sandwich') {
-    if (!values.sandwich) {
+  if (values.dishType === 'sandwich') {
+    if (!values.sandwich || !values.sandwich.trim()) {
       errors.sandwich = 'Required';
     }
   }
