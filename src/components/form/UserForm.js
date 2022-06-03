@@ -124,7 +124,7 @@ let UserForm = ({ dishType, handleSubmit, reset }) => {
 
 const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
 
-const validate = (values) => {
+const validate = (values, dishType) => {
   const errors = {};
   if (!values.dishName) {
     errors.dishName = 'Required';
@@ -140,7 +140,27 @@ const validate = (values) => {
   }
 
   if (!values.dishType) {
-    errors.prepTime = 'Required';
+    errors.prepTime = 'Please select dish type';
+  }
+
+  //TODO: finish validation for all elements, dynamic elements dishtypes
+  if (dishType === 'pizza') {
+    if (!values.pizzaNumOfSlices) {
+      errors.prepTime = 'Required';
+    }
+    if (!values.diameter) {
+      errors.diameter = 'Required';
+    }
+  }
+  if (dishType === 'soup') {
+    if (!values.spicinessScale) {
+      errors.spicinessScale = 'Required';
+    }
+  }
+  if (dishType === 'sandwich') {
+    if (!values.sandwich) {
+      errors.sandwich = 'Required';
+    }
   }
   return errors;
 };
