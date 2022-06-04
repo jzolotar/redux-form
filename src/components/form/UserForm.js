@@ -8,6 +8,7 @@ import { SubmissionError } from 'redux-form';
 import { validate } from '../../helpers/validate';
 import { normalizeDuration } from '../../helpers/normalizeDuration';
 import { sendData } from '../../helpers/sendData';
+import { Main } from '../../global/Main';
 
 let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
@@ -54,34 +55,37 @@ let UserForm = ({ dishType, handleSubmit }) => {
   );
 
   return (
-    <form onSubmit={handleSubmit(validateSubmition)}>
-      <Field
-        name='name'
-        type='text'
-        component={SingleInput}
-        label='Dish Name'
-        placeholder='Enter dish name'
-      />
+    <Main>
+      <h1>REDUX FORM</h1>
+      <form onSubmit={handleSubmit(validateSubmition)}>
+        <Field
+          name='name'
+          type='text'
+          component={SingleInput}
+          label='Dish Name'
+          placeholder='Enter dish name'
+        />
 
-      <Field
-        name='preparation_time'
-        component={SingleInput}
-        type='text'
-        label='Preparation Time'
-        placeholder='00:00:00'
-        normalize={normalizeDuration}
-      />
+        <Field
+          name='preparation_time'
+          component={SingleInput}
+          type='text'
+          label='Preparation Time'
+          placeholder='00:00:00'
+          normalize={normalizeDuration}
+        />
 
-      <Field label='Dish Type' name='type' component={SelectDropDownList} />
+        <Field label='Dish Type' name='type' component={SelectDropDownList} />
 
-      {dishType === 'pizza' && pizzaElem}
-      {dishType === 'soup' && soupElem}
-      {dishType === 'sandwich' && sandwichElem}
-      <div>
-        <button type='submit'>Submit</button>
-        <button>reset</button>
-      </div>
-    </form>
+        {dishType === 'pizza' && pizzaElem}
+        {dishType === 'soup' && soupElem}
+        {dishType === 'sandwich' && sandwichElem}
+        <div>
+          <button type='submit'>Submit</button>
+          <button>reset</button>
+        </div>
+      </form>
+    </Main>
   );
 };
 
