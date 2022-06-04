@@ -8,7 +8,7 @@ const SelectDropDownList = ({
   meta: { touched, error, warning },
 }) => {
   return (
-    <StyledSelectDropDownList>
+    <StyledSelectDropDownList touched={touched} error={error}>
       <label>{label}</label>
       <div>
         <select {...input}>

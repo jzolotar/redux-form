@@ -8,7 +8,7 @@ const SingleInput = ({
   meta: { touched, error, warning },
 }) => {
   return (
-    <StyledSingleInput>
+    <StyledSingleInput error={error} touched={touched}>
       <label>{label}:</label>
       <div>
         <input {...input} placeholder={placeholder} type={type} />
