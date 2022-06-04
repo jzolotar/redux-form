@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { reset, Field, reduxForm } from 'redux-form';
 import { Fragment } from 'react';
-import SingleInput from '../formElements/singleInput/SingleInput';
-import SelectDropDownList from '../formElements/select/SelectDropDown';
+import SingleInput from './formElements/singleInput/SingleInput';
+import SelectDropDownList from './formElements/select/SelectDropDown';
 import { SubmissionError } from 'redux-form';
 import { validate } from '../../helpers/validate';
 import { normalizeDuration } from '../../helpers/normalizeDuration';
 import { sendData } from '../../helpers/sendData';
 import { Main } from '../../global/Main';
 import { Button } from '../../global/Button';
-import SubmitInfo from '../SubmitInfo';
+import SubmitInfo from '../displayInfo/SubmitInfo';
 
 let UserForm = ({ dishType, handleSubmit, submitSucceeded }) => {
   const pizzaElem = (
@@ -145,10 +145,10 @@ const validateSubmition = (values) => {
   } else {
     //submit form to server
     return sendData(values).then((data) => {
-      console.log(data);
       if (data.errors) {
         throw new SubmissionError(data.errors);
       } else {
+        console.log('form has been submitted');
       }
     });
   }

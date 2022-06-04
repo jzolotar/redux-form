@@ -17,7 +17,6 @@ export const StyledSingleInput = styled.section`
     flex-direction: column;
     gap: 0.25rem;
     input {
-      /* border-radius: 0.5rem; */
       border: transparent;
       border-bottom: 1px solid #f4f4f4;
       background: transparent;

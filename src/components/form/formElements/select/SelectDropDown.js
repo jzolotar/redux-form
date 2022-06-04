@@ -20,9 +20,7 @@ const SelectDropDownList = ({
           ))}
         </select>
       </div>
-      {touched &&
-        ((error && <small>{error}</small>) ||
-          (warning && <small>{warning}</small>))}
+      {touched && error && <small>{error}</small>}
     </StyledSelectDropDownList>
   );
 };

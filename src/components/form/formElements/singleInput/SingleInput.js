@@ -13,9 +13,7 @@ const SingleInput = ({
       <label>{label}:</label>
       <div>
         <input {...input} placeholder={placeholder} type={type} step={step} />
-        {touched &&
-          ((error && <small>{error}</small>) ||
-            (warning && <small>{warning}</small>))}
+        {touched && error && <small>{error}</small>}
       </div>
     </StyledSingleInput>
   );

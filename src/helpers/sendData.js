@@ -11,7 +11,6 @@ export const sendData = async (data) => {
     });
 
     let resJSON = await res.json();
-    console.log(res);
 
     //handle 400 error
     if (!res.ok) {
