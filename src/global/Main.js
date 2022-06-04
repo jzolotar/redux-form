@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
+  position: relative;
   background-color: #333;
   padding: 2.5rem;
   font-size: 1.1rem;

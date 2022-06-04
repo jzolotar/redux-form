@@ -10,8 +10,9 @@ import { normalizeDuration } from '../../helpers/normalizeDuration';
 import { sendData } from '../../helpers/sendData';
 import { Main } from '../../global/Main';
 import { Button } from '../../global/Button';
+import SubmitInfo from '../SubmitInfo';
 
-let UserForm = ({ dishType, handleSubmit }) => {
+let UserForm = ({ dishType, handleSubmit, submitSucceeded }) => {
   const pizzaElem = (
     <Fragment>
       <Field
@@ -55,6 +56,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
   return (
     <Main>
+      {submitSucceeded && <SubmitInfo />}
       <h1>ReduxForm</h1>
       <form onSubmit={handleSubmit(validateSubmition)}>
         <Field
@@ -87,7 +89,11 @@ let UserForm = ({ dishType, handleSubmit }) => {
   );
 };
 
-const afterSubmit = (_, dispatch) => dispatch(reset('userForm'));
+const afterSubmit = (_, dispatch) => {
+  setTimeout(() => {
+    dispatch(reset('userForm'));
+  }, 2500);
+};
 
 const validateSubmition = (values) => {
   const errors = {};
@@ -143,7 +149,6 @@ const validateSubmition = (values) => {
       if (data.errors) {
         throw new SubmissionError(data.errors);
       } else {
-        console.log(data);
       }
     });
   }
