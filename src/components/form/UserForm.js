@@ -9,6 +9,7 @@ import { validate } from '../../helpers/validate';
 import { normalizeDuration } from '../../helpers/normalizeDuration';
 import { sendData } from '../../helpers/sendData';
 import { Main } from '../../global/Main';
+import { Button } from '../../global/Button';
 
 let UserForm = ({ dishType, handleSubmit }) => {
   const pizzaElem = (
@@ -81,8 +82,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
         {dishType === 'soup' && soupElem}
         {dishType === 'sandwich' && sandwichElem}
         <div>
-          <button type='submit'>Submit</button>
-          <button>reset</button>
+          <Button type='submit'>Submit</Button>
         </div>
       </form>
     </Main>

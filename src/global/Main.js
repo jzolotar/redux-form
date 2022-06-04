@@ -36,6 +36,6 @@ export const Main = styled.main`
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-around;
-    gap: 1rem;
+    gap: 2.9rem;
   }
 `;
