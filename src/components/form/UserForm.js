@@ -25,7 +25,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
       <Field
         name='diameter'
         component={SingleInput}
-        type='float'
+        type='number'
         placeholder='diameter'
         max='10'
         label='Diameter'
