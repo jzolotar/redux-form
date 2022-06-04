@@ -56,7 +56,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
 
   return (
     <Main>
-      <h1>REDUX FORM</h1>
+      <h1>ReduxForm</h1>
       <form onSubmit={handleSubmit(validateSubmition)}>
         <Field
           name='name'

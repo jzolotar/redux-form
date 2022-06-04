@@ -1,3 +1,5 @@
+import { StyledSelectDropDownList } from './SelectDropDown.styled';
+
 const dishTypeValues = ['pizza', 'soup', 'sandwich'];
 
 const SelectDropDownList = ({
@@ -6,7 +8,7 @@ const SelectDropDownList = ({
   meta: { touched, error, warning },
 }) => {
   return (
-    <div>
+    <StyledSelectDropDownList>
       <label>{label}</label>
       <div>
         <select {...input}>
@@ -19,9 +21,9 @@ const SelectDropDownList = ({
         </select>
       </div>
       {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
+        ((error && <small>{error}</small>) ||
+          (warning && <small>{warning}</small>))}
+    </StyledSelectDropDownList>
   );
 };
 

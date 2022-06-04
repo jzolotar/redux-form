@@ -13,6 +13,20 @@ export const Main = styled.main`
   h1 {
     text-align: center;
     margin-bottom: 2rem;
+    position: relative;
+    color: #002c3c;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 2.6rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background-color: #31d47d;
+      width: 280px;
+      height: 0.35rem;
+      border-radius: 5px;
+    }
   }
 
   form {
