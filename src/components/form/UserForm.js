@@ -20,8 +20,6 @@ let UserForm = ({ dishType, handleSubmit }) => {
         type='number'
         placeholder='num of slices'
         label='Number of slices'
-        max='10'
-        min='1'
       />
 
       <Field
@@ -29,7 +27,7 @@ let UserForm = ({ dishType, handleSubmit }) => {
         component={SingleInput}
         type='number'
         placeholder='diameter'
-        max='10'
+        step='any'
         label='Diameter'
       />
     </Fragment>
