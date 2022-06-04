@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/redux-form/static/js/main.a626b04d.js",
+    "index.html": "/redux-form/index.html",
+    "main.a626b04d.js.map": "/redux-form/static/js/main.a626b04d.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a626b04d.js"
+  ]
+}
