@@ -19,7 +19,7 @@ export const StyledSelectDropDownList = styled.section`
 
     select {
       border: transparent;
-      background: transparent;
+      background: #333;
       border-bottom: 1px solid #f4f4f4;
       padding: 0.25rem 0.5rem;
       padding-left: 0;
