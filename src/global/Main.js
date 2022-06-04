@@ -19,7 +19,7 @@ export const Main = styled.main`
     &::before {
       position: absolute;
       content: '';
-      top: 2.6rem;
+      top: 2.9rem;
       left: 50%;
       transform: translate(-50%, 0);
       background-color: #31d47d;
@@ -36,6 +36,6 @@ export const Main = styled.main`
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-around;
-    gap: 2.9rem;
+    gap: 2.5rem;
   }
 `;
