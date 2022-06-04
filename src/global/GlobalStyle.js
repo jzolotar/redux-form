@@ -21,7 +21,8 @@ body {
   font-size: 0.8125rem;
   line-height: 1.4;
   display: flex;
-  background-color: #f4f4f4;
+  background-color: #63d471;
+  background-image: linear-gradient(315deg, #63d471 0%, #233329 74%);
   flex-direction: column;
   align-items: center;
   justify-content: center;

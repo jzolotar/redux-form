@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
-  background-color: white;
+  background-color: #333;
   padding: 2.5rem;
   font-size: 1.1rem;
   border-radius: 0.6rem;
@@ -14,7 +14,7 @@ export const Main = styled.main`
     text-align: center;
     margin-bottom: 2rem;
     position: relative;
-    color: #002c3c;
+    color: #f4f4f4;
 
     &::before {
       position: absolute;

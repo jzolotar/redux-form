@@ -9,7 +9,7 @@ const SingleInput = ({
 }) => {
   return (
     <StyledSingleInput>
-      <label>{label}</label>
+      <label>{label}:</label>
       <div>
         <input {...input} placeholder={placeholder} type={type} />
         {touched &&
