@@ -6,6 +6,8 @@ Form has basic valdiation on go and supports returned validation errors.
 
 Project was built with React, Redux Form and Styled Components.
 
+You can check the live preview here - [https://jzolotar.github.io/redux-form/](https://jzolotar.github.io/redux-form/)
+
 ## How to Install and Run the Project
 
 In order to play with the project you need to do following things:
